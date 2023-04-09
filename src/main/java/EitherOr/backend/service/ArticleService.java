@@ -4,11 +4,15 @@ import EitherOr.backend.domain.Article;
 import EitherOr.backend.domain.ArticleCategory;
 import EitherOr.backend.domain.Category;
 import EitherOr.backend.dto.ArticleDto;
+import EitherOr.backend.dto.ArticleListDto;
 import EitherOr.backend.repository.ArticleCategoryRepository;
 import EitherOr.backend.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -54,5 +58,17 @@ public class ArticleService {
         return articleRepository.findOne(articleId);
     }
 
+    public List<ArticleListDto> getArticleListSortByTime(Long page){
+        List<ArticleListDto> result = new ArrayList<>();
+        List<Article> articleList = articleRepository.getTenRecent(page);
+        if (articleList != null) {
+            for (Article article : articleList) {
+                List<Category> categories = articleCategoryRepository.findByArticleId(article.getId());
+                result.add(new ArticleListDto(article, categories));
+            }
+        }
+        return result;
+
+    }
 
 }

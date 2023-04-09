@@ -2,6 +2,7 @@ package EitherOr.backend.controller;
 
 import EitherOr.backend.domain.Article;
 import EitherOr.backend.dto.ArticleDto;
+import EitherOr.backend.dto.ArticleListDto;
 import EitherOr.backend.service.ArticleService;
 import EitherOr.backend.service.ChatGptService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +24,7 @@ import java.util.*;
 @Controller
 @Slf4j
 @RequestMapping("/article")
+@ResponseBody
 @RequiredArgsConstructor
 public class ArticleController {
 
@@ -32,10 +34,10 @@ public class ArticleController {
     @ResponseBody
     @RequestMapping("/add")
     public Object getRecommendedText(ArticleForm articleForm) throws Exception {
-        log.info("input = {}", articleForm.generateQuestion());
         log.info("inputCat = {} / {}", articleForm.getCategory().toString(), articleForm.getCategory().size());
         ArticleDto articleDto = new ArticleDto(articleForm);
         Long articleId = articleService.saveArticle(articleDto);
+        log.info("input = {}", articleForm.generateQuestion());
         chatGptService.sendRequest(articleId, articleDto.generateQuestion());
         return articleId;
     }
@@ -48,12 +50,19 @@ public class ArticleController {
     @PutMapping("/unhit/{articleId}")
     public void articleHitDown(@PathVariable("articleId") Long articleId) {
         articleService.unHit(articleId);
+
     }
 
     @ResponseBody
     @GetMapping("/{articleId}")
     public Article articleSpecificSingle(@PathVariable("articleId") Long articleId) {
         return articleService.getArticle(articleId);
+    }
+
+    @ResponseBody
+    @GetMapping("/list/{page}")
+    public List<ArticleListDto> articleList(@PathVariable("page") Long page) {
+        return articleService.getArticleListSortByTime(page);
     }
 
 //    @Async("threadPoolTaskExecutor")

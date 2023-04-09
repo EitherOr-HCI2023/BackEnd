@@ -16,15 +16,13 @@ public class ArticleCategory {
     @Column(name = "article_category_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    private Long articleId;
 
     private Category category;
 
     public static ArticleCategory createArticleCategory(Article article, Category category) {
         ArticleCategory articleCategory = new ArticleCategory();
-        articleCategory.setArticle(article);
+        articleCategory.setArticleId(article.getId());
         articleCategory.setCategory(category);
 
         return articleCategory;

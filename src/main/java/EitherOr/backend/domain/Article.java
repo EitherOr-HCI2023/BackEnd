@@ -52,6 +52,7 @@ public class Article {
     public static Article createArticleFromDto(ArticleDto articleDto) {
         Article article = new Article();
         article.setName(articleDto.getName());
+        article.setCreationTime(LocalDateTime.now());
         article.setPassword(articleDto.getPassword());
         article.setHits(articleDto.getHits());
         article.setChoice1(articleDto.getChoice1());
