@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Passwords ###
+!**/src/main/java/EitherOr/backend/ChatGptConfig.java
+!**/src/main/resources/application.properties
