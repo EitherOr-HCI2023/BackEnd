@@ -23,12 +23,11 @@ public class ArticleController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public Object getRecommendedText(ArticleForm articleForm) throws Exception {
-        log.info("inputCat = {} / {}", articleForm.getCategory().toString(), articleForm.getCategory().size());
-        ArticleDto articleDto = new ArticleDto(articleForm);
-        Long articleId = articleService.saveArticle(articleDto);
+    public Long getRecommendedText(ArticleForm articleForm) throws Exception {
+        log.info("inputCat = {} / {}", articleForm.getCategories().toString(), articleForm.getCategories().size());
+        Long articleId = articleService.saveArticle(articleForm);
         log.info("input = {}", articleForm.generateQuestion());
-        chatGptService.sendRequest(articleId, articleDto.generateQuestion());
+        chatGptService.sendRequest(articleId, articleForm.generateQuestion());
         return articleId;
     }
 
@@ -45,7 +44,7 @@ public class ArticleController {
 
     @ResponseBody
     @GetMapping("/{articleId}")
-    public Article articleSpecificSingle(@PathVariable("articleId") Long articleId) {
+    public ArticleDto articleSpecificSingle(@PathVariable("articleId") Long articleId) {
         return articleService.getArticle(articleId);
     }
 

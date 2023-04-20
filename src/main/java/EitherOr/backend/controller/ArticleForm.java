@@ -19,7 +19,7 @@ public class ArticleForm {
     @NotEmpty(message = "두 번째 선택지를 입력해주세요.")
     private String choice2;
 
-    private List<Category> category;
+    private List<String> categories;
 
     public String generateQuestion() {
         return "\""+name+"\" 이라는 주제로 다음 두 선택지에서 선택을 하고, 그 이유를 알려줘\n 1. "+choice1+"\n 2. "+choice2;

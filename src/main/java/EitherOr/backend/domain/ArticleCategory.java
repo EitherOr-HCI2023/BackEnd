@@ -16,15 +16,20 @@ public class ArticleCategory {
     @Column(name = "article_category_id")
     private Long id;
 
-    private Long articleId;
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public static ArticleCategory createArticleCategory(Article article, Category category) {
         ArticleCategory articleCategory = new ArticleCategory();
-        articleCategory.setArticleId(article.getId());
         articleCategory.setCategory(category);
-
+        articleCategory.setArticle(article);
+        article.addCategory(articleCategory);
+        category.addArticle(articleCategory);
         return articleCategory;
     }
 }

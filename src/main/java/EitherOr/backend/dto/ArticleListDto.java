@@ -14,12 +14,12 @@ public class ArticleListDto {
     private Long id;
     private Long hits;
     private String name;
-    private List<Category> category;
+    private List<String> categories;
 
     @Builder
-    public ArticleListDto(Article article, List<Category> category) {
+    public ArticleListDto(Article article, List<String> category) {
         this.id = article.getId();
-        this.category = category;
+        this.categories = category;
         this.hits = article.getHits();
         this.name = article.getName();
     }

@@ -17,30 +17,24 @@ import java.util.List;
 public class ArticleDto {
 
     private String name;
-    private String password;
     private Long hits;
     private String choice1;
     private Long choice1SelectionNum;
     private String choice2;
     private Long choice2SelectionNum;
     private String chatGPTComment;
-    private List<Category> categories;
+    private List<String> categories;
 
-    @Builder
-    public ArticleDto(ArticleForm articleForm) {
-        this.name = articleForm.getName();
-        this.password = articleForm.getPassword();
-        this.hits = 0L;
-        this.choice1 = articleForm.getChoice1();
-        this.choice2 = articleForm.getChoice2();
-        this.choice1SelectionNum = 0L;
-        this.choice2SelectionNum = 0L;
-        this.chatGPTComment = "chatGPTComment";
-        this.categories = articleForm.getCategory();
+    public ArticleDto(Article article, List<String> categories) {
+        this.name = article.getName();
+        this.hits = article.getHits();
+        this.choice1 = article.getChoice1();
+        this.choice2 = article.getChoice2();
+        this.choice1SelectionNum = article.getChoice1SelectionNum();
+        this.choice2SelectionNum = article.getChoice2SelectionNum();
+        this.chatGPTComment = article.getChatGPTComment();
+        this.categories = categories;
 
     }
 
-    public String generateQuestion() {
-        return "\""+name+"\" 이라는 주제로 다음 두 선택지에서 선택을 하고, 그 이유를 알려줘\n 1. "+choice1+"\n 2. "+choice2;
-    }
 }

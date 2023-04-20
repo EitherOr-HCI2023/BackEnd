@@ -31,6 +31,12 @@ public class Article {
     private Long choice2SelectionNum;
     private String chatGPTComment;
 
+    @OneToMany(mappedBy = "article")
+    private List<ArticleCategory> articleCategories = new ArrayList<>();
+
+    public void addCategory(ArticleCategory articleCategory) {
+        articleCategories.add(articleCategory);
+    }
     public static Article createArticle(String name, String password, String contents, String choice1, String choice2, Category... articleCategories){
         Article article = new Article();
         article.setName(name);
@@ -49,18 +55,26 @@ public class Article {
         return article;
     }
 
-    public static Article createArticleFromDto(ArticleDto articleDto) {
+    public static Article createArticle(ArticleForm articleForm) {
         Article article = new Article();
-        article.setName(articleDto.getName());
-        article.setCreationTime(LocalDateTime.now());
-        article.setPassword(articleDto.getPassword());
-        article.setHits(articleDto.getHits());
-        article.setChoice1(articleDto.getChoice1());
-        article.setChoice2(articleDto.getChoice2());
-        article.setChoice1SelectionNum(articleDto.getChoice1SelectionNum());
-        article.setChoice2SelectionNum(articleDto.getChoice2SelectionNum());
-        article.setChatGPTComment(article.getChatGPTComment());
+        article.name = articleForm.getName();
+        article.creationTime = LocalDateTime.now();
+        article.password = articleForm.getPassword();
+        article.hits = 0L;
+        article.choice1 = articleForm.getChoice1();
+        article.choice2 = articleForm.getChoice2();
+        article.choice1SelectionNum = 0L;
+        article.choice2SelectionNum = 0L;
+        article.chatGPTComment = "chatGPTComment 생성중입니다. (약 1분 소요)";
         return article;
+    }
+
+    public List<String> getCategoryList(){
+        List<String> result =new ArrayList<>();
+        for (ArticleCategory articleCategory : articleCategories) {
+            result.add(articleCategory.getCategory().getCategoryName());
+        }
+        return result;
     }
 
 }
