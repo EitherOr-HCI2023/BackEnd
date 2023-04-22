@@ -22,7 +22,7 @@ public class ArticleForm {
     private List<String> categories;
 
     public String generateQuestion() {
-        return "\""+name+"\" 이라는 주제로 다음 두 선택지에서 선택을 하고, 그 이유를 알려줘\n 1. "+choice1+"\n 2. "+choice2;
+        return "\""+name+"\" 이라는 주제로 다음 두 선택지에서 딱 하나를 선택하고, 그 이유를 알려줘\n 1. "+choice1+"\n 2. "+choice2;
     }
 
 }

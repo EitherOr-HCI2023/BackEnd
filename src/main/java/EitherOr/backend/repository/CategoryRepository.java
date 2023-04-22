@@ -46,4 +46,9 @@ public class CategoryRepository {
     public List<String> getAllCategoryName(){
         return em.createQuery("select c.categoryName from Category c", String.class).getResultList();
     }
+
+    public void deleteCategory(Long categoryId) {
+        Category category = em.find(Category.class, categoryId);
+        em.remove(category);
+    }
 }

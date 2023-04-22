@@ -1,6 +1,7 @@
 package EitherOr.backend.repository;
 
 import EitherOr.backend.domain.Article;
+import EitherOr.backend.domain.ArticleCategory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,13 @@ public class ArticleRepository {
 
         return em.createQuery("select a from Article a order by a.creationTime", Article.class).setFirstResult((int)(10*(page-1))).setMaxResults(10)
                 .getResultList();
+    }
+
+    public void deleteArticle(Long articleId) {
+        Article article = em.find(Article.class, articleId);
+        for (ArticleCategory articleCategory : article.getArticleCategories())
+            em.remove(articleCategory);
+        em.remove(article);
     }
 
 }

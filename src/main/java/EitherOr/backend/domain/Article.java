@@ -29,6 +29,7 @@ public class Article {
     private Long choice1SelectionNum;
     private String choice2;
     private Long choice2SelectionNum;
+    @Column(length = 1000)
     private String chatGPTComment;
 
     @OneToMany(mappedBy = "article")

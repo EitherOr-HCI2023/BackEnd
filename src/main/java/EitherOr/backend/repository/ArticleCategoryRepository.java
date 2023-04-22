@@ -27,11 +27,18 @@ public class ArticleCategoryRepository {
 
 
     public List<Category> findByArticleId(Long articleId) {
-        return em.createQuery("select ac.category from ArticleCategory ac where ac.articleId =" + articleId, Category.class).getResultList();
+        return em.createQuery("select ac.category from ArticleCategory ac where ac.article.id = :articleId", Category.class)
+                .setParameter("articleId", articleId).getResultList();
     }
 
     public List<ArticleCategory> findAll(){
         return em.createQuery("select ac from ArticleCategory ac", ArticleCategory.class)
                 .getResultList();
+    }
+
+    public void deleteArticleCategory(Long articleCategoryId) {
+        ArticleCategory articleCategory = em.find(ArticleCategory.class, articleCategoryId);
+        articleCategory.getCategory().removeArticleCategory(articleCategory);
+        em.remove(articleCategory);
     }
 }

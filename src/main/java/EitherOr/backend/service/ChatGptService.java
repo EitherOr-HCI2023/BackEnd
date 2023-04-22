@@ -44,7 +44,7 @@ public class ChatGptService {
         log.info("\n======================\n{} 에 대한 response 도착! \n======================\n{}", question, responseEntity.getBody().getChoices().get(0).getMessage().get("content"));
 
 
-        String gptResponse = responseEntity.getBody().getChoices().get(0).getMessage().get("content");;
+        String gptResponse = responseEntity.getBody().getChoices().get(0).getMessage().get("content");
         articleService.updateGptComment(articleId, gptResponse);
     }
 }

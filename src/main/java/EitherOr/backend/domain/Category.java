@@ -18,7 +18,7 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private List<ArticleCategory> articles = new ArrayList<>();
     private String categoryName;
 
@@ -30,5 +30,9 @@ public class Category {
         Category result = new Category();
         result.categoryName = name;
         return result;
+    }
+
+    public void removeArticleCategory(ArticleCategory articleCategory) {
+        articles.remove(articleCategory);
     }
 }
