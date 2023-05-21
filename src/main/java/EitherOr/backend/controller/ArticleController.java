@@ -62,9 +62,9 @@ public class ArticleController {
     }
 
     @ResponseBody
-    @GetMapping("/category/{categoryName}/{articleId}")
-    public List<ArticleListDto> articleCategoryList(@PathVariable("categoryName") String categoryName, @PathVariable("articleId") Long articleId) {
-        return articleService.getArticleInCategoryListSortByTime(articleId, categoryName);
+    @GetMapping("/category/{categoryName}/{pageNum}")
+    public List<ArticleListDto> articleCategoryList(@PathVariable("categoryName") String categoryName, @PathVariable("pageNum") Long pageNum) {
+        return articleService.getArticleInCategoryListSortByTime(pageNum, categoryName);
     }
 
     @ResponseBody
@@ -86,4 +86,11 @@ public class ArticleController {
         log.info("articleId, 비밀번호: [{}][{}]", articleId, password);
         return articleService.deleteArticle(articleId, password);
     }
+
+    @ResponseBody
+    @GetMapping("/popular/{pageNum}")
+    public List<ArticleListDto> popularArticleList(@PathVariable("pageNum") Long pageNum) {
+        return articleService.getArticleListSortByHits(pageNum);
+    }
+
 }

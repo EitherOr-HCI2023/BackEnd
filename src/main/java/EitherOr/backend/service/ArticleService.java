@@ -92,6 +92,16 @@ public class ArticleService {
         }
         return result;
     }
+    public List<ArticleListDto> getArticleListSortByHits(Long page) {
+        List<ArticleListDto> result = new ArrayList<>();
+        List<Article> articleList = articleRepository.getTenPopular(page);
+        if (articleList != null) {
+            for (Article article : articleList) {
+                result.add(new ArticleListDto(article, article.getCategoryList()));
+            }
+        }
+        return result;
+    }
 
     public List<ArticleListDto> getArticleInCategoryListSortByTime(Long page, String categoryName) {
         List<ArticleListDto> result = new ArrayList<>();

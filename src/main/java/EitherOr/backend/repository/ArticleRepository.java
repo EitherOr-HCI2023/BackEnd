@@ -35,6 +35,11 @@ public class ArticleRepository {
         return em.createQuery("select a from Article a order by a.creationTime", Article.class).setFirstResult((int)(10*(page-1))).setMaxResults(10)
                 .getResultList();
     }
+    public List<Article> getTenPopular(Long page){
+
+        return em.createQuery("select a from Article a order by a.hits desc ", Article.class).setFirstResult((int)(10*(page-1))).setMaxResults(10)
+                .getResultList();
+    }
 
     public void deleteArticle(Long articleId) {
         Article article = em.find(Article.class, articleId);

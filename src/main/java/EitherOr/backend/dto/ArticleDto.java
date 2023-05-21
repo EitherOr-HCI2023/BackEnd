@@ -17,6 +17,7 @@ import java.util.List;
 public class ArticleDto {
 
     private String name;
+    private Long id;
     private Long hits;
     private String choice1;
     private Long choice1SelectionNum;
@@ -26,6 +27,7 @@ public class ArticleDto {
     private List<String> categories;
 
     public ArticleDto(Article article, List<String> categories) {
+        this.id = article.getId();
         this.name = article.getName();
         this.hits = article.getHits();
         this.choice1 = article.getChoice1();
