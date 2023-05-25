@@ -24,7 +24,7 @@ public class ArticleController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public Long getRecommendedText(ArticleForm articleForm) throws Exception {
+    public Long getRecommendedText(@RequestBody ArticleForm articleForm) throws Exception {
         log.info("inputCat = {} / {}", articleForm.getCategories().toString(), articleForm.getCategories().size());
         Long articleId = articleService.saveArticle(articleForm);
         log.info("input = {}", articleForm.generateQuestion());
